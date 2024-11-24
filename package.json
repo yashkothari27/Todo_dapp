@@ -1,0 +1,24 @@
+{
+  "name": "todo-dapp",
+  "version": "1.0.0",
+  "description": "Blockchain Todo DApp",
+  "main": "truffle-config.js",
+  "scripts": {
+    "dev": "lite-server",
+    "test": "truffle test",
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "deploy": "truffle migrate --reset"
+  },
+  "dependencies": {
+    "@truffle/contract": "^4.6.28",
+    "web3": "^1.10.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1",
+    "truffle": "^5.11.5",
+    "@openzeppelin/contracts": "^4.9.3",
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1"
+  }
+}
