@@ -90,7 +90,7 @@ header h1 {
 
 .stats-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
@@ -98,15 +98,43 @@ header h1 {
 .stat-box {
   background: white;
   padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-radius: 16px;
   border: 1px solid #e2e8f0;
-  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
 }
 
 .stat-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.total-tasks .stat-icon {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.completed-tasks .stat-icon {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.pending-tasks .stat-icon {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
 }
 
 .todo-form {
@@ -144,24 +172,75 @@ header h1 {
 
 .todo-item {
   background: white;
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
+  padding: 1.25rem;
+  border-radius: 12px;
   margin-bottom: 1rem;
   border: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.2s;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .todo-item:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.todo-item.completed {
-  background: #f0fdf4;
-  border-left: 4px solid #22c55e;
+.todo-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-title {
+  font-weight: 500;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.todo-timestamp {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.todo-button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.complete-button {
+  background: #10b981;
+  color: white;
+  border: none;
+}
+
+.complete-button:hover {
+  background: #059669;
+}
+
+.delete-button {
+  background: #ef4444;
+  color: white;
+  border: none;
+}
+
+.delete-button:hover {
+  background: #dc2626;
 }
 
 .filters {
@@ -225,4 +304,86 @@ header h1 {
 .disconnect-button:hover {
   background: #dc2626;
   transform: translateY(-1px);
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.status-message {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.status-message.success {
+  background: #10b981;
+  color: white;
+}
+
+.status-message.error {
+  background: #ef4444;
+  color: white;
+}
+
+.status-message.warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.status-message.info {
+  background: #3b82f6;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
